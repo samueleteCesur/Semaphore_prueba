@@ -1,0 +1,12 @@
+- name: Mostrar logs del sistema en AlmaLinux 9
+  hosts: NFS
+  become: yes
+
+  tasks:
+    - name: Obtener últimos logs del sistema
+      command: journalctl -xe --no-pager -n 50
+      register: logs
+
+    - name: Mostrar logs
+      debug:
+        msg: "{{ logs.stdout_lines }}"
